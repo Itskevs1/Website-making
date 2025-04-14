@@ -1,0 +1,60 @@
+.continue2-content {
+  height: 34vw;
+  margin: 30px auto;
+  background: url(C:\Users\USER\OneDrive\Documents\FINALLLL\website\public\bottom.png)
+    no-repeat;
+  background-size: contain;
+  position: relative;
+  margin-bottom: -30%;
+}
+
+.bottom {
+  margin-bottom: 350px;
+}
+.contents {
+  position: relative;
+  bottom: -200px;
+  right: -80px;
+  display: wrap;
+  border: solid;
+  width: 450px;
+  padding: 20px 20px;
+  border-color: white;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px gray;
+}
+
+.first {
+  width: 1000px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.second {
+  width: 410px;
+  margin-bottom: 15px;
+}
+
+.third {
+  margin-bottom: 15px;
+}
+
+.fourth {
+  margin-bottom: 15px;
+}
+
+.button {
+  background-color: #fcbf29;
+  color: black;
+  font-weight: bold;
+  padding: 5px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #e0a800;
+}

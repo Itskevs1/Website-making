@@ -1,0 +1,13 @@
+.stores-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 250px;
+}
+
+.para {
+  font-size: 80px;
+  color: #000;
+  text-align: center;
+  margin-top: 20px;
+}
