@@ -1,7 +1,7 @@
 import hamburger from './hamburger.png'
 import ustpfoodlogo from './ustpfoodlogo.png'
 import frontbuilding from './frontbuilding.png'
-import budgetmeal from './budgetmeal.png'
+import budgetmeal from './budgetMeal2.jpg'
 import chickenfillet from './chickenfillet.png'
 import kutsinta from './kutsinta.png'
 import minutemaid from './minutemaid.png'
@@ -16,6 +16,7 @@ import phone from './phone.png'
 import place from './place.png'
 import pods from './pods.png'
 import cafe from './cafe.png'
+import user from './user.png'
 
 import basket_icon from './basket_icon.png'
 import logo from './logo.png'
@@ -99,7 +100,8 @@ export const assets = {
     email,
     cafe,
     pods,
-      
+    user,
+    
     logo,
     basket_icon,
     header_img,

@@ -1,86 +1,125 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { assets } from "../../assets/assets";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
-const Login = ({ isOpen, onClose, isLogin, setIsLogin }) => {
-  if (!isOpen) return null;
+const Login = () => {
+  const [values, setValues] = useState({
+    username: "",
+    password: "",
+  })
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:8800/login', values)
+      .then(res => console.log(err))
+      .then(res => console.log(err));
+  }
+
+  const query = new URLSearchParams(useLocation().search);
+  const mode = query.get("mode");
+  const isLogin = mode === "login";
+  const navigate = useNavigate();
 
   return (
-    <div className="overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>×</button>
+    <div className="auth-container">
+      <img src="/cafet.png" alt="Background" className="bg" />
 
-        {/* Left Panel */}
-        {!isLogin ? (
-          <div className="left-panel white-bg slide">
-            <h2>SIGN UP</h2>
-            <form className="form">
-              <div className="input-container">
-                <input className="usernames" type="text" placeholder="First Name" />
-                <input className="usernames" type="text" placeholder="Last Name" />
-              </div>
-              
-              <div className="input-container">
-                <input className="password" type="text" placeholder="ID Number" />
-              </div>
-              <p className="Birthday">Birthday</p>
-              <div className="input-container">
-                <input className="date" type="date" placeholder="Birthday" />
-                <select className="select">
-                  <option>Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Prefer not to say</option>
+      {isLogin ? (
+        <div className="auth-wrapper login-mode">
 
-                </select>
-              </div>
-              <div className="input-container">
-                <input className="password" type="email" placeholder="Email" />
-              </div>
-              <div className="input-container">
-                <input className="password" type="password" placeholder="New Password" />
-              </div>
-              <div className="input-container">
-                <input className="password" type="password" placeholder="Confirm Password" />
-              </div>
-              <button className="btn">Sign Up</button>
-            </form> 
+          {/* Left Panel - Sign Up Prompt */}
+          <div className="auth-panel left yellow-bg">
+            <img src="/ustpfoodlogos.png" alt="Logo" className="auth-logo" />
+            <h2 className="auth-heading hello">Hello, Trailblazer!</h2>
+            <p>Unlock the experience--sign up and start now!</p>
+            <button className="auth-switch" onClick={() => navigate("/auth?mode=signup")}>Sign Up</button>
           </div>
-        ) : (
-          <div className="left-panel yellow-bg slide">
-            <img src={assets.ustplogoorig} alt="USTP Logo" className="ustp-logo" />
-            <h2>Hello, Trailblazer!</h2>
-            <p>Unlock the experience—sign up and start now!</p>
-            <button className="toggle-btn" onClick={() => setIsLogin(!isLogin)}>Sign Up</button>
-          </div>
-        )}
 
-        {/* Right Panel */}
-        {isLogin ? (
-          <div className="right-panel white-bg slide">
-            <h2>LOGIN</h2>
-            <form className="form">
-              <div className="input-container">
+          {/* Right Panel - Login Form */}
+          <div className="auth-panel right white-bg">
+            <h2 className="auth-heading yellow-text">LOGIN</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="input-group row-input">
                 <img src={assets.profile} alt="Profile" className="icon" />
-                <input className="user" type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" onChange={e => setValues({ ...values, username: e.target.value })} />
               </div>
-              <div className="input-container">
+              <div className="input-group row-input">
                 <img src={assets.key} alt="Key" className="icon" />
-                <input className="user" type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" onChange={e => setValues({ ...values, password: e.target.value })} />
               </div>
-              <a href="#" className="forgot">Forgot Password?</a>
-              <button className="btn">Log In</button>
+              <div className="forgot-password">Forgot Password?</div>
+              <Link to="/Homepage"><button className="auth-submit">Login</button></Link>
             </form>
           </div>
-        ) : (
-          <div className="right-panel yellow-bg slide">
-            <img src={assets.ustplogoorig} alt="USTP Logo" className="ustp-logo" />
-            <h2>Welcome Back!</h2>
-            <p>Stay in touch—log in and keep the connection alive!</p>
-            <button className="toggle-btn" onClick={() => setIsLogin(!isLogin)}>Login</button>
+
+        </div>
+      ) : (
+        <div className="auth-wrapper signup-mode">
+          {/* Left Panel - Sign Up Form */}
+          <div className="auth-panel left white-bg">
+            <h2 className="auth-heading yellow-text">SIGN UP</h2>
+
+            <div className="input-row">
+              <div className="input-group">
+                <input type="text" placeholder="First Name" />
+              </div>
+              <div className="input-group">
+                <input type="text" placeholder="Last Name" />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <input type="text" placeholder="ID Number" />
+            </div>
+
+            <div className="input-row">
+              <div className="input-column">
+                <label className="label" htmlFor="birthday">Birthday</label>
+                <div className="input-group">
+                  <input type="date" id="birthday" />
+                </div>
+              </div>
+
+              <div className="input-column">
+                <label className="label" style={{ visibility: "hidden" }}>Placeholder</label>
+                <div className="input-group">
+                  <select defaultValue="">
+                    <option value="" disabled>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <input type="email" placeholder="Email" />
+            </div>
+
+            <div className="input-group">
+              <input type="password" placeholder="New Password" />
+            </div>
+
+            <div className="input-group">
+              <input type="password" placeholder="Confirm Password" />
+            </div>
+
+            <Link to="/Homepage"><button className="auth-submit">Sign Up</button></Link>
           </div>
-        )}
-      </div>
+
+          {/* Right Panel - Login Prompt */}
+          <div className="auth-panel right yellow-bg">
+            <img src="/ustpfoodlogos.png" alt="Logo" className="auth-logo" />
+            <h2 className="auth-heading">Welcome Back!</h2>
+            <p>Stay in touch--log in and keep the connection alive!</p>
+            <button className="auth-switch" onClick={() => navigate("/auth?mode=login")}>Login</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

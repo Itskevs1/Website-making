@@ -1,6 +1,6 @@
 import React from 'react'
 import './Cons.css'
-
+import { Link } from 'react-router-dom';
 
 const Continue2 = () => {
   return (
@@ -18,7 +18,7 @@ const Continue2 = () => {
           <p className='fourth'>
             Interested? Let’s start our partnership today!
           </p>
-          <button className="button">Get Started</button>
+          <Link to="/get-started"><button className="button">Get Started</button> </Link>
         </div>
       </div>
     </div>

@@ -8,10 +8,6 @@ import Continue2 from '../../components/Cons/Cons'
 
 
 
-
-
-
-
 const Home = () => {
   return (
     <div>
@@ -20,7 +16,7 @@ const Home = () => {
       <ExploreMenu />
       <Continue />
       <Continue2 />
-    
+      
       
       </>
     </div>

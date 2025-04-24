@@ -2,56 +2,68 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
-import Login from "../Login/Login"; 
 
 const Navbar = () => {
   const [menu, setMenu] = useState("menu");
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const openLogin = (login) => {
-    setIsLogin(login);
-    setIsLoginOpen(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   return (
-    <div className="navbar">
+    <>
+      <div className="navbar">
+        {/* Left: Hamburger + Logo */}
+        <div className="navbar-left">
+          <img
+            src={assets.hamburger}
+            alt="menu"
+            className="hamburger"
+            onClick={toggleSidebar}
+          />
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img src={assets.ustpfoodlogo} alt="logo" className="ustpfoodlogo" />
+          </Link>
+        </div>
 
-      <div className="picture">
-        <img src={assets.hamburger} alt="" className="hamburger" />
-        <img src={assets.ustpfoodlogo} alt="" className="ustpfoodlogo" />
+
+
+        {/* Right: Auth Buttons */}
+        <div className="navbar-right">
+          <Link to="/auth?mode=login"><button className="login">Login</button></Link>
+          <Link to="/auth?mode=signup"><button className="signup">Sign Up</button></Link>
+        </div>
       </div>
 
-      <ul className="navbar-menu">
-        <Link to="/">
-          <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Home</li>
-        </Link>
-        <Link to="/stores">
-          <li onClick={() => setMenu("stores")} className={menu === "stores" ? "active" : ""}>Stores</li>
-        </Link>
-        <Link to="/about-us">
-          <li onClick={() => setMenu("about-us")} className={menu === "about-us" ? "active" : ""}>About Us</li>
-        </Link>
-        <Link to="/contact-us">
-          <li onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>Contact Us</li>
-        </Link>
-        <Link to="/feedback">
-          <li onClick={() => setMenu("feedback")} className={menu === "feedback" ? "active" : ""}>Feedback</li>
-        </Link>
-        <Link to="/faq">
-          <li onClick={() => setMenu("faq")} className={menu === "faq" ? "active" : ""}>FAQ</li>
-        </Link>
-      
-      </ul>
-      
-      <div className="navbar-right">
-        <button className="login" onClick={() => openLogin(true)}>Login</button>
-        <button className="signup" onClick={() => openLogin(false)}>Sign Up</button>
-      </div>
+      {/* Sidebar Overlay */}
+      {isSidebarOpen && <div className="sidebar-overlay" onClick={closeSidebar}></div>}
 
-      {/* Render */}
-      <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} isLogin={isLogin} setIsLogin={setIsLogin} />
-    </div>
+      {/* Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? "show" : ""}`}>
+        <div className="sidebar-header">
+          <span className="close-btn" onClick={toggleSidebar}>×</span>
+        </div>
+        <div className="sidebar-content">
+          <Link to="/about-us" onClick={toggleSidebar}>
+            <div className="sidebar-item"><img src="/about-us.png" alt="" />About Us</div>
+          </Link>
+          <Link to="/contact-us" onClick={toggleSidebar}>
+            <div className="sidebar-item"><img src="/phone-call.png" alt="" />Contact Us</div>
+          </Link>
+          <Link to="/faq" onClick={toggleSidebar}>
+            <div className="sidebar-item"><img src="/question.png" alt="" />FAQ</div>
+          </Link>
+          <Link to="/feedback" onClick={toggleSidebar}>
+            <div className="sidebar-item"><img src="/rate.png" alt="" />Feedback</div>
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 

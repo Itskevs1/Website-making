@@ -1,95 +1,143 @@
 .navbar {
-  padding: 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 40px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Left Section */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .hamburger {
-  width: 40px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
 }
 
 .ustpfoodlogo {
-  width: 95px;
-  height: 70px;
+  width: 85px;
+  height: 60px;
 }
 
-.picture {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.navbar-menu {
-  display: flex;
-  list-style: none;
-  gap: 20px;
+.navbar-center a {
+  text-decoration: none;
   color: black;
-  font-size: 18px;
 }
 
+.navbar-center li.active {
+  color: #fcbf29;
+}
+
+.navbar-center li:hover {
+  color: #fcbf29;
+  cursor: pointer;
+}
+
+/* Right Section */
 .navbar-right {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .login,
 .signup {
-  background-color: #fcbf29;
-  color: black;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 15px;
-  width: auto;
-  min-width: 100px;
-  text-align: center;
 }
 
-.login:hover,
-.signup:hover {
-  background: linear-gradient(135deg, #f7b500, #ffd700);
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.login {
+  background-color: #fcbf29;
+  border: 2px solid #fcbf29;
+  color: black;
 }
 
-.login:active,
-.signup:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.signup {
+  background-color: #fcbf29;
+  color: black;
 }
 
-.navbar .active {
-  padding-bottom: 2px;
-  border-bottom: 2px solid #49557e;
+/* Sidebar Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1400;
 }
 
-.navbar li {
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 260px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.show {
+  left: 0;
+}
+
+.sidebar-header {
+  background-color: #fcbf29;
+  padding: 180px 20px 20px; 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  font-size: 28px;
+  background: none;
+  border: none;
   cursor: pointer;
+  color: #333;
 }
 
-@media (max-width: 1050px) {
-  .navbar .picture {
-    width: 150px;
-  }
-  .navbar-menu {
-    gap: 20px;
-    font-size: 17px;
-  }
-  .navbar-right {
-    gap: 30px;
-  }
-  .navbar-right button {
-    padding: 8px 25px;
-  }
+.sidebar-content {
+  background-color: white;
+  padding: 45px 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
 }
 
-@media (max-width: 750px) {
-  .navbar-menu {
-    display: none;
-  }
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
+
+.sidebar-item:hover {
+  transform: translateX(5px);
+}
+
+.sidebar-item img {
+  width: 24px;
+  height: 24px;
+}
+``
