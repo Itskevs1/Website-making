@@ -5,6 +5,7 @@ import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { loginUser } from "./action";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -12,12 +13,47 @@ const Login = () => {
     password: "",
   })
 
-  const handleSubmit = (event) => {
+  const [registerValues, setRegisterValues] = useState({
+    firstName: "",
+    lastName: "",
+    idNumber: "",
+    birthday: "",
+    gender: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleSubmitLogin = async (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8800/login', values)
-      .then(res => console.log(err))
-      .then(res => console.log(err));
-  }
+    try {
+      const data = await loginUser(values);
+      console.log('Login successful:', data);
+      navigate('/Home');
+    } catch (error) {
+      console.error('Login failed:', error.message);
+      alert('Invalid credentials!');
+    }
+  };
+
+  const handleSubmitRegister = async (event) => {
+    event.preventDefault();
+    const { confirmPassword, ...payload } = registerValues;
+
+    if (registerValues.password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const data = await registerUser(payload);
+      console.log("Register successful:", data);
+      navigate("/auth?mode=login");
+    } catch (error) {
+      console.error("Register failed:", error.message);
+      alert(error.message || "Registration failed!");
+    }
+  };
 
   const query = new URLSearchParams(useLocation().search);
   const mode = query.get("mode");
@@ -42,7 +78,7 @@ const Login = () => {
           {/* Right Panel - Login Form */}
           <div className="auth-panel right white-bg">
             <h2 className="auth-heading yellow-text">LOGIN</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitLogin}>
               <div className="input-group row-input">
                 <img src={assets.profile} alt="Profile" className="icon" />
                 <input type="text" placeholder="Username" onChange={e => setValues({ ...values, username: e.target.value })} />
@@ -52,7 +88,7 @@ const Login = () => {
                 <input type="password" placeholder="Password" onChange={e => setValues({ ...values, password: e.target.value })} />
               </div>
               <div className="forgot-password">Forgot Password?</div>
-              <Link to="/Homepage"><button className="auth-submit">Login</button></Link>
+              <button className="auth-submit" type="submit">Login</button>
             </form>
           </div>
 

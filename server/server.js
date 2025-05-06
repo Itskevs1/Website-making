@@ -1,41 +1,17 @@
 import express from 'express';
-import mysql from 'mysql'
+import dotenv from 'dotenv';
+import authRoutes from './routes/user.route.js';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import cookieParser from 'cookie-parser';
 
-const app =express();
-app.use(express.json());
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT | 3000;
+
 app.use(cors());
-app.use(cookieParser());
+app.use(express.json());
+app.use('/api/auth', authRoutes);
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: "",
-    database: 'signup'
-  })
-
-app.post('/register',(req, res) => {
-  const sql= "INSERT INTO Login (`username`, `password`) VALUES (?)"
-  bycrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-      if (err) return res.json({Error: "Error for hashing password"});
-    
-    const values =[
-      req.body.username,
-      req.body.password,
-      hash
-    ]
-    db.query(sql [values], (err, result) => {
-      if (err) return res.json({Error: "Inserting data Error om server"});
-      return res.json({Status: "Success"});
-    })
-  })
-})
-  return res.json({Status: "Success"})
-
-app.listen(8800, () => {
-  console.log("Running...");
-})
-
+app.listen(PORT, () => {
+  console.log(`Server running on PORT ${PORT}`);
+});
